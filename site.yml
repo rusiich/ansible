@@ -1,0 +1,9 @@
+---
+- name: deploy Taski
+  hosts: my_servers
+  become: true
+
+  roles:
+    - docker_install
+    - build_images
+    - deploy_app
