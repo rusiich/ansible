@@ -24,3 +24,34 @@
   debug:
     msg: "http://{{ item.item }}:8000/admin/ -> HTTP {{ item.stdout }}"
   loop: "{{ admin_result.results }}"
+
+- name: Add task (POST)
+  shell: |
+    curl -s -X POST http://{{ item }}:8000/api/tasks/ \
+    -H "Content-Type: application/json" \
+    -d '{"title":"Ansible task","description":"Created by ansible"}'
+  register: post_result
+  loop:
+    - 192.168.56.103
+    - 192.168.56.105
+  ignore_errors: yes
+
+- name: Show POST result
+  debug:
+    var: post_result.results
+
+
+- name: Get tasks (GET)
+  shell: |
+    curl -s http://{{ item }}:8000/api/tasks/
+  register: get_result
+  loop:
+    - 192.168.56.103
+    - 192.168.56.105
+  ignore_errors: yes
+
+- name: Check task exists
+  debug:
+    msg: "Task exists on {{ item.item }}"
+  when: "'Ansible task' in item.stdout"
+  loop: "{{ get_result.results }}"
