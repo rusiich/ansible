@@ -22,5 +22,5 @@
 
 - name: Show admin page results
   debug:
-    msg: "http://{{ item.item }}:8000/admin -> HTTP {{ item.stdout }}"
+    msg: "http://{{ item.item }}:8000/admin/ -> HTTP {{ item.stdout }}"
   loop: "{{ admin_result.results }}"
