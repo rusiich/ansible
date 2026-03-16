@@ -6,4 +6,4 @@
   roles:
     - docker_install
     - build_images
-#    - deploy_app
+    - deploy_app

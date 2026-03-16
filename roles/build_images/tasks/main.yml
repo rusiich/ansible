@@ -14,42 +14,54 @@
     force: true
 
 - name: Copy backend Dockerfile
-  ansible.builtin.copy:
+  copy:
     src: /opt/ansible/inventory/files/backend/Dockerfile
     dest: /opt/taski/backend/Dockerfile
     mode: '0644'
+    remote_src: true
 
 - name: Copy backend entrypoint
-  ansible.builtin.copy:
+  copy:
     src: /opt/ansible/inventory/files/backend/entrypoint.sh
     dest: /opt/taski/backend/entrypoint.sh
     mode: '0755'
+    remote_src: true
 
 - name: Copy frontend Dockerfile
-  ansible.builtin.copy:
+  copy:
     src: /opt/ansible/inventory/files/frontend/Dockerfile
     dest: /opt/taski/frontend/Dockerfile
     mode: '0644'
+    remote_src: true
+
+- name: Create gateway directory
+  file:
+    path: /opt/taski/gateway
+    state: directory
+    mode: '0755'
 
 - name: Copy gateway Dockerfile
-  ansible.builtin.copy:
+  copy:
     src: /opt/ansible/inventory/files/gateway/Dockerfile
     dest: /opt/taski/gateway/Dockerfile
     mode: '0644'
+    remote_src: true
 
 - name: Copy gateway nginx config
-  ansible.builtin.copy:
+  copy:
     src: /opt/ansible/inventory/files/gateway/nginx.conf
     dest: /opt/taski/gateway/nginx.conf
     mode: '0644'
+    remote_src: true
 
 - name: Copy docker compose file
-  ansible.builtin.copy:
+  copy:
     src: /opt/ansible/inventory/files/docker-compose.yml
     dest: /opt/taski/docker-compose.yml
     mode: '0644'
+    remote_src: true
 
-# - name: Build docker images
-#   ansible.builtin.command: docker compose build
-#   args:
-#     chdir: /opt/taski/deploy
+- name: Build docker images
+  ansible.builtin.command: docker compose build
+  args:
+    chdir: /opt/taski

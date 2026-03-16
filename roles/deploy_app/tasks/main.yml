@@ -1,0 +1,25 @@
+---
+- name: Create .env file for application
+  ansible.builtin.copy:
+    dest: /opt/taski/.env
+    mode: '0600'
+    content: |
+      POSTGRES_DB=taski
+      POSTGRES_USER=taski_user
+      POSTGRES_PASSWORD=taski_password
+      DB_HOST=db
+      DB_PORT=5432
+
+- name: Run application with docker compose
+  ansible.builtin.command: docker compose up -d
+  args:
+    chdir: /opt/taski
+
+- name: Show running containers
+  ansible.builtin.command: docker ps
+  register: docker_ps_result
+  changed_when: false
+
+- name: Print running containers
+  ansible.builtin.debug:
+    var: docker_ps_result.stdout_lines
