@@ -27,6 +27,13 @@
     mode: '0755'
     remote_src: true
 
+- name: Copy .env
+  copy:
+    src: /opt/ansible/inventory/files/.env
+    dest: /opt/taski/.env
+    mode: '0755'
+    remote_src: true
+
 - name: Copy frontend Dockerfile
   copy:
     src: /opt/ansible/inventory/files/frontend/Dockerfile
