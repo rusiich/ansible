@@ -1,0 +1,26 @@
+- name: Check main page
+  shell: "curl -o /dev/null -s -w '%{http_code}' http://{{ item }}:8000"
+  register: main_result
+  loop:
+    - 192.168.56.103
+    - 192.168.56.105
+  ignore_errors: yes
+
+- name: Show main page results
+  debug:
+    msg: "http://{{ item.item }}:8000 -> HTTP {{ item.stdout }}"
+  loop: "{{ main_result.results }}"
+
+
+- name: Check admin page
+  shell: "curl -o /dev/null -s -w '%{http_code}' http://{{ item }}:8000/admin"
+  register: admin_result
+  loop:
+    - 192.168.56.103
+    - 192.168.56.105
+  ignore_errors: yes
+
+- name: Show admin page results
+  debug:
+    msg: "http://{{ item.item }}:8000/admin -> HTTP {{ item.stdout }}"
+  loop: "{{ admin_result.results }}"

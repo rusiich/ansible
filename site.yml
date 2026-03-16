@@ -7,3 +7,4 @@
     - docker_install
     - build_images
     - deploy_app
+    - check_sites
