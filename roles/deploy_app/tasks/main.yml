@@ -4,9 +4,10 @@
     dest: /opt/taski/.env
     mode: '0600'
     content: |
-      POSTGRES_DB=taski
-      POSTGRES_USER=taski_user
-      POSTGRES_PASSWORD=taski_password
+      POSTGRES_USER=django_user
+      POSTGRES_PASSWORD=mysecretpassword
+      POSTGRES_DB=django
+
       DB_HOST=db
       DB_PORT=5432
 
